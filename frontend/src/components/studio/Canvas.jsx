@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Sparkles, Download, Loader2, ImageIcon, Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Sparkles, Download, Loader2, ImageIcon, Plus, ConciergeBell } from "lucide-react";
 import axios from "axios";
 
 const BACKEND_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
@@ -29,6 +30,7 @@ const urlToBase64 = async (url) => {
 };
 
 export default function Canvas({ filters, referenceImage, venueImage, selectedAngle, onAddToMoodboard }) {
+  const navigate = useNavigate();
   const [prompt, setPrompt] = useState("");
   const [generatedImage, setGeneratedImage] = useState(null);
   const [generatedVariants, setGeneratedVariants] = useState([]);
@@ -239,6 +241,29 @@ Style: Luxury event photography, photorealistic, 4K, warm golden ambient lightin
             data-testid="toggle-services"
           >
             Services
+          </button>
+        </div>
+
+        {/* Concierge button */}
+        <div className="relative">
+          <button
+            onClick={() => {
+              const img = generatedVariants[selectedVariantIndex] || generatedImage;
+              if (img) {
+                sessionStorage.setItem("concierge_source_image", img);
+                sessionStorage.setItem("concierge_source_prompt", prompt || "");
+              } else {
+                sessionStorage.removeItem("concierge_source_image");
+                sessionStorage.removeItem("concierge_source_prompt");
+              }
+              navigate("/concierge");
+            }}
+            disabled={isGenerating}
+            className="glass-button rounded-full px-3 py-1 text-xs uppercase tracking-wider flex items-center gap-1.5"
+            data-testid="go-to-concierge"
+          >
+            <ConciergeBell className="w-3.5 h-3.5" strokeWidth={1.5} />
+            Concierge
           </button>
         </div>
       </div>
