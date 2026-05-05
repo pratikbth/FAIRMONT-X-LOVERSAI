@@ -25,6 +25,12 @@ def get_cors_origins() -> list[str]:
         return ["http://localhost:3000", "http://127.0.0.1:3000"]
     return origins or ["http://localhost:3000", "http://127.0.0.1:3000"]
 
+
+def get_cors_origin_regex() -> Optional[str]:
+    if os.environ.get("CORS_ORIGINS"):
+        return None
+    return r"^https?://(?:localhost|127\.0\.0\.1|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(?:1[6-9]|2\d|3[0-1])\.\d+\.\d+):3000$"
+
 # Setup logging FIRST (before any logging calls)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -738,7 +744,7 @@ async def generate_flux_variant_from_payload(
         }
 
     if not result_url:
-        async with httpx.AsyncClient(timeout=15.0) as client:
+        async with httpx.AsyncClient(timeout=30.0) as client:
             for _ in range(max_attempts):
                 await asyncio.sleep(3)
                 poll_response = await client.get(
@@ -1355,6 +1361,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
     allow_origins=get_cors_origins(),
+    allow_origin_regex=get_cors_origin_regex(),
     allow_methods=["*"],
     allow_headers=["*"],
 )

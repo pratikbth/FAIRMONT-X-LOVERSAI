@@ -103,7 +103,7 @@ export default function Canvas({ filters, referenceImage, venueImage, selectedAn
         variant_count: targetVariants,
       };
 
-      const res = await axios.post(`${API}/generate`, payload);
+      const res = await axios.post(`${API}/generate`, payload, { timeout: 180000 });
       if (!res.data.success) {
         throw new Error(res.data.error || "Failed to generate image");
       }
@@ -156,7 +156,7 @@ Style: Luxury event photography, photorealistic, 4K, warm golden ambient lightin
             variant_count: 1,
           };
 
-          const svcRes = await axios.post(`${API}/generate`, servicePayload);
+          const svcRes = await axios.post(`${API}/generate`, servicePayload, { timeout: 180000 });
           if (svcRes.data && svcRes.data.success) {
             const svcImg = svcRes.data.image_data || (Array.isArray(svcRes.data.variants) && svcRes.data.variants[0] && svcRes.data.variants[0].image_data) || null;
             if (svcImg) {
