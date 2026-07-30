@@ -575,11 +575,24 @@ def guess_mime_from_binary(data: bytes) -> str:
 
 
 def build_nano_banana_contents(prompt: str, venue_image: Optional[str], design_image: Optional[str]) -> list:
-    parts = [{"text": prompt}]
+    parts = []
     if venue_image:
+        parts.append({"text": "TARGET VENUE SPACE (The space to be decorated. Preserve all structure, walls, floor, and architecture):"})
         parts.append({"inlineData": {"mimeType": guess_mime_from_base64(venue_image), "data": venue_image}})
     if design_image:
+        parts.append({"text": "DESIGN AND STYLE REFERENCE (Extract the theme, color palette, flowers, drapery, and decor style from this image to apply to the target venue):"})
         parts.append({"inlineData": {"mimeType": guess_mime_from_base64(design_image), "data": design_image}})
+    
+    gemini_instruction = f"""
+{prompt}
+
+CRITICAL RULES:
+1. Look at the "DESIGN AND STYLE REFERENCE" image and extract its styling, materials, color scheme, floral design, and overall event theme.
+2. Look at the "TARGET VENUE SPACE" image, keep its structural layout, walls, ceiling, pillars, and geometry exactly the same.
+3. Transform the TARGET VENUE SPACE by applying the decor style extracted from the DESIGN AND STYLE REFERENCE, customized according to the requested Client request and Event type.
+4. Generate a single, photorealistic, premium, high-resolution final event image.
+"""
+    parts.append({"text": gemini_instruction})
     return [{"role": "user", "parts": parts}]
 
 
