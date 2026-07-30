@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Upload, X, Image as ImageIcon, Monitor, LayoutTemplate, ChevronDown } from "lucide-react";
 
-const ASSET = "https://customer-assets.emergentagent.com/job_luxe-design-studio-2/artifacts";
+const ASSET = "/Assets";
 
 const SPACE_OPTIONS = [
   {

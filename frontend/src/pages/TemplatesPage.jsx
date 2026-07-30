@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Download, FileText, Loader2, Presentation } from "lucide-react";
 import axios from "axios";
 
-const BG_IMAGE = "https://customer-assets.emergentagent.com/job_luxe-design-studio-2/artifacts/prqxmpyt_b354_ho_00_p_1024x768.jpg";
+const BG_IMAGE = "/bg_image.jpg";
 const BACKEND_BASE_URL = (process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
 const API = `${BACKEND_BASE_URL}/api`;
 

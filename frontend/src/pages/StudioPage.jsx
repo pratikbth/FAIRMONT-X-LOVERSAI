@@ -7,7 +7,7 @@ import AngleModal from "@/components/studio/AngleModal";
 import TemplateRefModal from "@/components/studio/TemplateRefModal";
 import MoodboardModal from "@/components/studio/MoodboardModal";
 
-const BG_IMAGE = "https://customer-assets.emergentagent.com/job_luxe-design-studio-2/artifacts/prqxmpyt_b354_ho_00_p_1024x768.jpg";
+const BG_IMAGE = "/bg_image.jpg";
 
 export default function StudioPage() {
   const navigate = useNavigate();

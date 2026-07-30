@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { Instagram, Linkedin, Mail, ArrowDown, Sparkles } from "lucide-react";
 
-const BG_IMAGE = "https://customer-assets.emergentagent.com/job_luxe-design-studio-2/artifacts/prqxmpyt_b354_ho_00_p_1024x768.jpg";
-const FAIRMONT_LOGO = "https://customer-assets.emergentagent.com/job_luxe-design-studio-2/artifacts/vull8s52_msa_l_0000681-1.svg";
-const LOVERSAI_LOGO = "https://customer-assets.emergentagent.com/job_luxe-design-studio-2/artifacts/pzzxqiqb_Gemini_Generated_Image_vf8wwvvf8wwvvf8w-removebg-preview.png";
+const BG_IMAGE = "/bg_image.jpg";
+const FAIRMONT_LOGO = "/fairmont_logo.png";
+const LOVERSAI_LOGO = "/loversai_logo.png";
 
 export default function LandingPage() {
   const navigate = useNavigate();
